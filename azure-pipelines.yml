@@ -26,7 +26,7 @@ stages:
     variables:
     - group: tf-vars
     jobs:
-      - job: terraform-steps
+      - job: terraforming 
         steps:     
         - script: |
               set -e

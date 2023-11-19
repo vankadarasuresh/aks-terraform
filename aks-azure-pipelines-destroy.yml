@@ -25,10 +25,10 @@ pool:
 
 
 stages:
-  - stage: Provision
-    displayName: "Terraforming"
+  - stage: infra_destroy
+    displayName: "terraform_destroy"
     jobs:
-      - job: terraforming 
+      - job: terraform_destroy_steps 
         steps:     
         - script: |
               set -e

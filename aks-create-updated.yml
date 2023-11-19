@@ -1,0 +1,70 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+parameters:
+  - name: env
+    displayName: Environment
+    type: string
+    default: dev
+    values:
+      - dev
+      - prod
+
+trigger: none
+
+pr: none
+
+variables:
+  - group: tf-vars
+
+pool:
+  vmImage: ubuntu-latest
+
+
+stages:
+  - stage: initiation
+    displayName: "initiation stage"
+    jobs:
+      - job: initiate
+        displayName: terraform-initiate
+        steps:     
+        - script: |
+              set -e
+              terraform init -input=false -backend-config=key=${{ parameters.env }}.tfstate
+          env:
+            ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+            ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+            ARM_TENANT_ID: $(ARM_TENANT_ID)
+            ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+  - stage: planning
+    displayName: "planning stage"
+    jobs:
+      - job: plan
+        displayName: terraform-plan
+        steps:
+        - script: |
+              set -e
+              terraform plan -input=false -var-file=${{ parameters.env }}.tfvars
+          env:
+            ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+            ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+            ARM_TENANT_ID: $(ARM_TENANT_ID)
+            ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+  - stage: applying
+    displayName: "applying stage"
+    jobs:
+      - job: apply
+        displayName: terraform-apply
+        steps:
+        - script: |
+              set -e
+              terraform apply -input=false -var-file=${{ parameters.env }}.tfvars -auto-approve
+          env:
+            ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+            ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+            ARM_TENANT_ID: $(ARM_TENANT_ID)
+            ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+
+

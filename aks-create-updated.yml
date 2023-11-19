@@ -24,8 +24,8 @@ pool:
 
 
 stages:
-  - stage: initiation
-    displayName: "initiation stage"
+  - stage: infra-provision
+    displayName: "infra-provision stage"
     jobs:
       - job: initiate
         displayName: terraform-initiate
@@ -38,9 +38,6 @@ stages:
             ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
             ARM_TENANT_ID: $(ARM_TENANT_ID)
             ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-  - stage: planning
-    displayName: "planning stage"
-    jobs:
       - job: plan
         displayName: terraform-plan
         steps:
@@ -52,9 +49,6 @@ stages:
             ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
             ARM_TENANT_ID: $(ARM_TENANT_ID)
             ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
-  - stage: applying
-    displayName: "applying stage"
-    jobs:
       - job: apply
         displayName: terraform-apply
         steps:

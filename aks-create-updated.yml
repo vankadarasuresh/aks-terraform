@@ -24,7 +24,7 @@ pool:
 
 
 stages:
-  - stage: infra-provision
+  - stage: infra provision
     displayName: "infra-provision stage"
     jobs:
       - job: initiate

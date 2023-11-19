@@ -1,4 +1,4 @@
-resource_group_name = "aks_tf_rg"
+resource_group_name = "dev_aks_tf_rg"
 location            = "CentralUS"
 cluster_name        = "my-aks-cluster"
 kubernetes_version  = "1.26.3"

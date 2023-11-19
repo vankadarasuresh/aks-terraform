@@ -26,9 +26,9 @@ pool:
 
 stages:
   - stage: Provision
-    displayName: "Terraforming"
+    displayName: "Infra Provision"
     jobs:
-      - job: terraforming 
+      - job: terraform_steps_initiate_plan_apply 
         steps:     
         - script: |
               set -e

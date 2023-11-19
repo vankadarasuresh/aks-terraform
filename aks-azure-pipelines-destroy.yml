@@ -32,7 +32,7 @@ stages:
         - script: |
               set -e
               terraform init -input=false -backend-config=key=${{ parameters.env }}.tfstate
-              terraform destroy -input=false -auto-approve
+              terraform destroy -input=false -var-file=${{ parameters.env }}.tfvars -auto-approve
           env:
             ARM_CLIENT_ID: $(ARM_CLIENT_ID)
             ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)

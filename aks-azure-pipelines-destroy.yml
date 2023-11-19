@@ -10,7 +10,8 @@ parameters:
     default: dev
     values:
       - dev
-      - prod
+      - production
+      - staging
 
 trigger: none
 
